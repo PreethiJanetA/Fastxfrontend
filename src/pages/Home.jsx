@@ -36,7 +36,7 @@ export default function Home() {
 
     if (name === "password") {
       if (!value) return "Password is required.";
-      else if (value.length < 6)
+      else if (value.length < 8)
         return "Password must be at least 6 characters.";
       else if (value.length > 100)
         return "Password must be at most 100 characters.";

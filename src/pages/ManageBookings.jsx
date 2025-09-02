@@ -56,7 +56,7 @@ export default function ManageBookings() {
     if (window.confirm("Are you sure you want to cancel this booking?")) {
       try {
         await cancelBooking(id);
-        toast.success("Booking cancelled successfully.");
+        toast.success("Booking Cancelled successfully.");
         if (searchedBooking) {
           setSearchedBooking(null);
           setSearchId("");
@@ -245,7 +245,7 @@ export default function ManageBookings() {
                           className="btn btn-danger btn-sm"
                           onClick={() => handleDelete(b.bookingId)}
                         >
-                          Cancel
+                          Delete
                         </button>
                       </td>
                     </tr>

@@ -56,10 +56,6 @@ export default function BusOperatorDashboard() {
         >
           Manage Bookings
         </button>
-        <button onClick={() => navigate("/bus-operator/manage-refunds")} className="btn btn-outline-light mb-2">
-  Manage Refunds
-</button>
-
         <button
           onClick={() => {
             logout();

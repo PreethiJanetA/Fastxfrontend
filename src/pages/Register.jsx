@@ -14,7 +14,7 @@ const Register = () => {
     gender: "",
     contactNumber: "",
     address: "",
-    roleId: 2,
+    roleId: 1,
     busId: "", 
   });
 

@@ -78,7 +78,8 @@ export default function SearchRoutes() {
 
     try {
      
-      const formattedDate = new Date(date).toISOString();
+      // const formattedDate = new Date(date).toISOString();
+      const formattedDate = date.split("T")[0]; 
 
       const data = await searchRoutes(origin, destination, formattedDate);
 
@@ -220,9 +221,9 @@ export default function SearchRoutes() {
                       <br />
                       <small>Fare: ₹{route.fare}</small>
                       <br />
-                      <small>
+                      {/* <small>
                         Departure: {new Date(route.departureTime).toLocaleString()}
-                      </small>
+                      </small> */}
                     </div>
                     <div>
                       <button

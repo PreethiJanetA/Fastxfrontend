@@ -52,7 +52,7 @@ const getAuthHeaders = () => ({
 });
 
 export const searchRoutes = async (origin, destination, travelDate) => {
-  const response = await axios.get("/Route/search", {
+  const response = await axios.get("/Route/Search", {
     params: { origin, destination, travelDate },
     headers: getAuthHeaders(),
   });

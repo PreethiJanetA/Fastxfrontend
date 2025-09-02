@@ -13,36 +13,52 @@ export default function BookTicket() {
   const [bookingDetails, setBookingDetails] = useState(null);
 
   const handleConfirmBooking = async () => {
-    if (selectedSeatIds.length === 0) {
-      toast.warning("No seats selected!");
-      return;
-    }
+  if (selectedSeatIds.length === 0) {
+    toast.warning("No seats selected!");
+    return;
+  }
 
-    const userId = localStorage.getItem("userId");
-    const payload = {
-      userId: parseInt(userId),
-      routeId: parseInt(routeId),
-      seatNumbers: selectedSeatNumbers,
-    };
-
-    try {
-      const response = await bookTicket(payload); 
-      console.log("Booking API Response:", response);
-
-      if (response && response.bookingId) {
-        setBookingDetails(response);
-        toast.success(`Booking Confirmed! ID: ${response.bookingId}`);
-      } else {
-        toast.success("Booking Confirmed!");
-      }
-
-      
-      setTimeout(() => navigate("/"), 4000);
-    } catch (error) {
-      console.error("Booking failed:", error);
-      toast.error("Booking failed. Try again.");
-    }
+  const userId = localStorage.getItem("userId");
+  const payload = {
+    userId: parseInt(userId),
+    routeId: parseInt(routeId),
+    seatNumbers: selectedSeatNumbers.map(String), 
   };
+
+  console.log("Payload being sent:", payload);
+  try {
+  const response = await bookTicket(payload);
+  console.log("Booking API Response:", response);
+
+  let bookingId = null;
+
+  // Case 1: backend returns string "Ticket booked successfully. Booking ID: 19"
+  if (typeof response === "string") {
+    const match = response.match(/Booking ID:\s*(\d+)/);
+    if (match) {
+      bookingId = match[1];
+    }
+  }
+
+  // Case 2: backend returns proper JSON { bookingId: 19, ... }
+  if (response && response.bookingId) {
+    bookingId = response.bookingId;
+  }
+
+  if (bookingId) {
+    toast.success(`Booking Confirmed! ID: ${bookingId}`);
+    setTimeout(() => {
+      navigate(`/payment/${bookingId}`);
+    }, 1500);
+  } else {
+    toast.success("Booking Confirmed!");
+  }
+} catch (error) {
+  console.error("Booking failed:", error.response?.data || error.message);
+  toast.error("Booking failed. Try again.");
+}
+
+};
 
   return (
     <div
@@ -117,4 +133,3 @@ export default function BookTicket() {
     </div>
   );
 }
-

@@ -19,7 +19,7 @@ export const getPendingRefunds = async () => {
 };
 
 export const approveRefund = async (refundId) => {
-  const response = await axios.post(`/Refund/approve/${refundId}`);
+  const response = await axios.put(`/Refund/approve/${refundId}`);
   return response.data;
 };
 

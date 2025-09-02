@@ -21,7 +21,7 @@ const api = axios.create({
 });
 
 export const getPaymentsByUser = async (userId, pageNumber, pageSize) => {
-  return api.get(`/Payment/GetPaymentsByUserId/${userId}`, {
+  return api.get(`/Payments/GetPaymentsByUserId/${userId}`, {
     params: {
       "pagenation.PageNumber": pageNumber,
       "pagenation.PageSize": pageSize,

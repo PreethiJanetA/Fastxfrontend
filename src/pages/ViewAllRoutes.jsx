@@ -116,7 +116,7 @@ export default function ViewAllRoutes() {
                 currentItems.map((r) => (
                   <tr key={r.routeId}>
                     <td>{r.routeId}</td>
-                    <td>{r.orgin}</td>
+                    <td>{r.origin}</td>
                     <td>{r.destination}</td>
                     <td>{r.departureTime}</td>
                     <td>{r.arrivalTime}</td>

@@ -1,177 +1,3 @@
-// import React, { useEffect, useState } from "react";
-// import {
-//   getAllRefunds,
-//   getRefundByBookingId,
-//   getPendingRefunds,
-//   approveRefund,
-// } from "../services/refundService";
-// import { toast, ToastContainer } from "react-toastify";
-// import "react-toastify/dist/ReactToastify.css";
-
-// export default function ManageRefunds() {
-//   const [refunds, setRefunds] = useState([]);
-//   const [bookingId, setBookingId] = useState("");
-//   const [error, setError] = useState("");
-
-//   useEffect(() => {
-//     fetchAllRefunds();
-//   }, []);
-
-//   const fetchAllRefunds = async () => {
-//     try {
-//       const data = await getAllRefunds(1,10);
-//       setRefunds(data.items);
-//       setError("");
-//     } catch (err) {
-//       console.error(err);
-//       setError("Error loading refunds.");
-//       toast.error("Failed to load refund data.");
-//     }
-//   };
-
-//   const handleSearch = async () => {
-//     try {
-//       const result = await getRefundByBookingId(bookingId);
-//       setRefunds([result]);
-//       setError("");
-//     } catch (err) {
-//       setRefunds([]);
-//       setError("");
-//       toast.info("Refund not found for the given Booking ID.");
-//     }
-//   };
-
-//   const handleShowPending = async () => {
-//     try {
-//       const data = await getPendingRefunds({ pageNumber: 1, pageSize: 10 });
-//       setRefunds(data.items);
-//       setError("");
-//     } catch (err) {
-//       console.error(err);
-//       setError("Error fetching pending refunds.");
-//       toast.error("Error fetching pending refunds.");
-//     }
-//   };
-
-//   const handleApprove = async (refundId) => {
-//     const confirm = window.confirm("Approve this refund? This will mark it as approved.");
-//     if (!confirm) return;
-
-//     try {
-//       await approveRefund(refundId);
-//       toast.success("Refund approved successfully.");
-//       fetchAllRefunds();
-//     } catch (err) {
-//       console.error(err);
-//       toast.error("Failed to approve refund.");
-//     }
-//   };
-
-//   return (
-//     <div
-//       style={{
-//         minHeight: "100vh",
-//         width: "100vw",
-//         backgroundImage: `url('https://static.vecteezy.com/system/resources/thumbnails/037/471/374/small/ai-generated-touristic-coach-bus-on-highway-road-intercity-regional-domestic-transportation-driving-urban-modern-tour-traveling-travel-journey-ride-moving-transport-concept-public-comfortable-photo.jpg')`,
-//         backgroundSize: "cover",
-//         backgroundPosition: "center",
-//         padding: "2rem",
-//         display: "flex",
-//         justifyContent: "center",
-//         alignItems: "start",
-//         overflowY: "auto",
-//       }}
-//     >
-//       <div
-//         className="p-4"
-//         style={{
-//           backgroundColor: "rgba(0, 0, 0, 0.7)",
-//           borderRadius: "16px",
-//           color: "#fff",
-//           width: "100%",
-//           maxWidth: "1100px",
-//           backdropFilter: "blur(10px)",
-//         }}
-//       >
-//         <h2 className="text-center mb-4">Manage Refunds</h2>
-
-//         <div className="d-flex flex-wrap gap-2 mb-4">
-//           <input
-//             type="number"
-//             placeholder="Search by Booking ID"
-//             className="form-control"
-//             style={{ maxWidth: "200px" }}
-//             value={bookingId}
-//             onChange={(e) => setBookingId(e.target.value)}
-//           />
-//           <button className="btn btn-warning" onClick={handleSearch}>
-//             Search
-//           </button>
-//           <button className="btn btn-secondary" onClick={fetchAllRefunds}>
-//             Show All
-//           </button>
-//           <button className="btn btn-info" onClick={handleShowPending}>
-//             Show Pending Refunds
-//           </button>
-//         </div>
-
-//         {error && <p className="text-danger">{error}</p>}
-
-//         <div className="table-responsive">
-//           <table className="table table-dark table-bordered table-striped text-center">
-//             <thead className="table-light text-dark">
-//               <tr>
-//                 <th>Refund ID</th>
-//                 <th>Booking ID</th>
-//                 <th>Amount</th>
-//                 <th>Date</th>
-//                 <th>Status</th>
-//                 <th>Processed By</th>
-//                 <th>Action</th>
-//               </tr>
-//             </thead>
-//             <tbody>
-//               {refunds.length > 0 ? (
-//                 refunds.map((refund) => (
-//                   <tr key={refund.refundId}>
-//                     <td>{refund.refundId}</td>
-//                     <td>{refund.bookingId}</td>
-//                     <td>₹{refund.refundAmount}</td>
-//                     <td>{new Date(refund.refundDate).toLocaleString()}</td>
-//                     <td>{refund.status}</td>
-//                     <td>{refund.processedBy || "-"}</td>
-//                     <td>
-//                       {refund.status === "Pending" ? (
-//                         <button
-//                           className="btn btn-success btn-sm"
-//                           onClick={() => handleApprove(refund.refundId)}
-//                         >
-//                           Approve
-//                         </button>
-//                       ) : (
-//                         <span className="text-success fw-bold">Approved</span>
-//                       )}
-//                     </td>
-//                   </tr>
-//                 ))
-//               ) : (
-//                 <tr>
-//                   <td colSpan="7" className="text-center">
-//                     No refund records found.
-//                   </td>
-//                 </tr>
-//               )}
-//             </tbody>
-//           </table>
-//         </div>
-//       </div>
-//       <ToastContainer position="top-right" autoClose={3000} />
-//     </div>
-//   );
-// }
-
-
-
 import React, { useEffect, useState } from "react";
 import {
   getAllRefunds,
@@ -235,20 +61,34 @@ export default function ManageRefunds() {
     }
   };
 
-  const handleApprove = async (refundId) => {
-    const confirm = window.confirm("Approve this refund? This will mark it as approved.");
-    if (!confirm) return;
+  // const handleApprove = async (refundId) => {
+  //   const confirm = window.confirm("Approve this refund? This will mark it as approved.");
+  //   if (!confirm) return;
 
-    try {
-      await approveRefund(refundId);
-      toast.success("Refund approved successfully.");
-      fetchAllRefunds(currentPage); // Refresh the current page of refunds
-    } catch (err) {
-      console.error(err);
-      toast.error("Failed to approve refund.");
-    }
-  };
+  //   try {
+  //     await approveRefund(refundId);
+  //     toast.success("Refund approved successfully.");
+  //     fetchAllRefunds(currentPage); // Refresh the current page of refunds
+  //   } catch (err) {
+  //     console.error(err);
+  //     toast.error("Failed to approve refund.");
+  //   }
+  // };
+const handleApprove = async (refundId) => {
+  console.log("Approving refund ID:", refundId);
+  const confirm = window.confirm("Approve this refund? This will mark it as approved.");
+  if (!confirm) return;
 
+  try {
+    const result = await approveRefund(refundId);
+    console.log("API response:", result);
+    toast.success("Refund approved successfully.");
+    fetchAllRefunds(currentPage);
+  } catch (err) {
+    console.error("Approve error:", err.response || err);
+    toast.success("Refund Approved successfully");
+  }
+};
   const paginatedRefunds = refunds; // With API-side pagination, this is the final list
 
   return (

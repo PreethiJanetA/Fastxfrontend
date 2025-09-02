@@ -1,7 +1,6 @@
 import { Routes, Route, BrowserRouter } from "react-router-dom";
 import Navbar from "./Components/Navbar";
 import Home from './pages/Home';
-// import Login from './pages/Login';
 import Register from './pages/Register';
 import SearchRoutes from './pages/SearchRoutes';
 import PrivateRoute from './auth/PrivateRoute';
@@ -10,6 +9,8 @@ import BookTicket from "./pages/BookTicket";
 import ViewSeats from './pages/ViewSeats';
 
 import CancelPage from './pages/CancelPage';
+import PaymentPage from './pages/PaymentPage';
+import PaymentSuccess from "./pages/PaymentSuccess";
 
 
 import AdminDashboard from "./pages/AdminDashboard";
@@ -52,6 +53,8 @@ function App() {
           <Route path="/view-seats/:routeId" element={<PrivateRoute><ViewSeats /></PrivateRoute>} />
           
           <Route path="/cancel/:bookingId" element={<PrivateRoute><CancelPage /></PrivateRoute>} />
+          <Route path="/payment/:bookingId" element={<PrivateRoute><PaymentPage /></PrivateRoute>} />
+          <Route path="//payment-success" element={<PrivateRoute><PaymentSuccess /></PrivateRoute>} />
 
           
           <Route path="/admin" element={<PrivateRoute><AdminDashboard /></PrivateRoute>} />

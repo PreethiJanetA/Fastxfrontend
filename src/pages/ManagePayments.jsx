@@ -51,19 +51,44 @@ export default function ManagePayments() {
     }
   };
 
-  const handleSearchByUser = async () => {
+//   const handleSearchByUser = async () => {
+//   if (!userId.trim()) {
+//     setError("");
+//     toast.warning("Please enter a User ID.");
+//     return;
+//   }
+
+//   try {
+//     const response = await getPaymentsByUser(userId); 
+//     const paymentsArray = response.data?.items || []; 
+//     setPayments(paymentsArray);
+//     setError("");
+//     setCurrentPage(1);
+//   } catch (err) {
+//     console.error(err);
+//     setPayments([]);
+//     setError("");
+//     toast.info("No payments found for the given User ID.");
+//   }
+// };
+const handleSearchByUser = async () => {
   if (!userId.trim()) {
     setError("");
     toast.warning("Please enter a User ID.");
     return;
   }
 
+  // Define default values for pagination
+  const pageNumber = 1;
+  const pageSize = 10;
+
   try {
-    const response = await getPaymentsByUser(userId); 
+    const response = await getPaymentsByUser(userId, pageNumber, pageSize); 
     const paymentsArray = response.data?.items || []; 
     setPayments(paymentsArray);
     setError("");
     setCurrentPage(1);
+    toast.success(`Found ${paymentsArray.length} payments for user ID: ${userId}`);
   } catch (err) {
     console.error(err);
     setPayments([]);
@@ -165,7 +190,7 @@ export default function ManagePayments() {
                       <td>{p.bookingId}</td>
                       <td>₹{p.amount}</td>
                       <td>{p.paymentMethod}</td>
-                      <td>{p.status}</td>
+                      <td>{p.paymentstatus}</td>
                       <td>{new Date(p.paymentDate).toLocaleString()}</td>
                     </tr>
                   ))

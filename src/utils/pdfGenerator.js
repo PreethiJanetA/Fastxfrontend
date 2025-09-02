@@ -12,7 +12,6 @@ export function generateTicketPDF(booking) {
     doc.text(`User ID: ${booking.userId}`, 20, 50);
     doc.text(`Route ID: ${booking.routeId}`, 20, 60);
     doc.text(`Date: ${new Date(booking.bookingDate).toLocaleString()}`, 20, 70);
-    doc.text(`Seats: ${booking.seats?.join(", ") || "-"}`, 20, 80);
     doc.text(`Amount Paid: ₹${booking.amountPaid ?? "-"}`, 20, 90);
     doc.text(`Status: ${booking.status}`, 20, 100);
 

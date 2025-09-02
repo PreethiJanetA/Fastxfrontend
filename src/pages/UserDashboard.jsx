@@ -43,22 +43,22 @@ export default function UserDashboard() {
       >
         <h3 className="text-center fw-bold mb-4">Dashboard</h3>
         <button onClick={() => navigate("/view-buses")} className="btn btn-outline-light mb-2">
-          View All Buses
+          All Buses
         </button>
          <button onClick={() => navigate("/view-routes")} className="btn btn-outline-light mb-2">
-          View All Routes
+          All Routes
         </button>
         <button onClick={() => navigate("/SearchRoutes")} className="btn btn-outline-light mb-2">
-          Search Routes
+          Available Routes
         </button>
         <button onClick={() => navigate("/my-bookings")} className="btn btn-outline-light mb-2">
-          My Bookings
+          Booking History
         </button>
         <button onClick={() => navigate("/my-payment")} className="btn btn-outline-light mb-2">
-          My Payments
+          Payment History
         </button>
         <button onClick={() => navigate("/my-refunds")} className="btn btn-outline-light mb-2">
-          My Refunds
+          Refund History
         </button>
         <button
           onClick={() => {

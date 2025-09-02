@@ -14,6 +14,14 @@ export default function ManageUsers() {
   const [currentPage, setCurrentPage] = useState(1);
   const usersPerPage = 5;
 
+  // Frontend role mapping based on RoleId
+  const roleMapping = {
+    1: "User",
+    2: "Admin",
+    3: "Bus Operator",
+    // add other roles if any
+  };
+
   useEffect(() => {
     loadUsers();
   }, []);
@@ -72,12 +80,10 @@ export default function ManageUsers() {
     }
   };
 
-  
   const totalPages = Math.ceil(users.length / usersPerPage);
-  const displayedUsers = Array.isArray(users)? users.slice(
-    (currentPage - 1) * usersPerPage,
-    currentPage * usersPerPage
-  ):[];
+  const displayedUsers = Array.isArray(users)
+    ? users.slice((currentPage - 1) * usersPerPage, currentPage * usersPerPage)
+    : [];
 
   return (
     <div
@@ -150,7 +156,7 @@ export default function ManageUsers() {
                     <td>{u.gender}</td>
                     <td>{u.contactNumber}</td>
                     <td>{u.address}</td>
-                    <td>{u.roleName}</td>
+                    <td>{roleMapping[u.roleId] || "Unknown"}</td>
                     <td>
                       <button
                         className="btn btn-danger btn-sm"
@@ -168,7 +174,6 @@ export default function ManageUsers() {
           <p>No users found.</p>
         )}
 
-        
         {users.length > usersPerPage && (
           <div className="d-flex justify-content-center mt-3 flex-wrap">
             <button

@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import {
   getBookingsByuserId,
   getBookingById,
@@ -10,7 +11,7 @@ import "react-toastify/dist/ReactToastify.css";
 export default function MyBookings() {
   const [bookings, setBookings] = useState([]);
   const [bookingId, setBookingId] = useState("");
-
+  const navigate = useNavigate();
   const fetchMyBookings = async () => {
     try {
       // Assuming your backend service needs the userId for this call
@@ -46,6 +47,7 @@ export default function MyBookings() {
         await cancelBooking(id);
         toast.success("Booking cancelled successfully.");
         fetchMyBookings(); // Reload bookings after a successful cancellation
+        navigate(`/cancel/${bookingId}`);
       } catch (err) {
         console.error(err);
         toast.error("Failed to cancel booking.");
@@ -132,7 +134,7 @@ export default function MyBookings() {
                     <td>{b.status}</td>
                     <td>{new Date(b.bookingDate).toLocaleString()}</td>
                     <td>
-                      {b.status === "Booked" && (
+                      {b.status === "Completed" && (
                         <button
                           className="btn btn-danger btn-sm"
                           onClick={() => handleCancel(b.bookingId)}
@@ -160,86 +162,3 @@ export default function MyBookings() {
 }
 
 
-// import React, { useEffect, useState } from "react";
-// import { useNavigate } from "react-router-dom";
-// import { getMyBookings } from "../services/bookingService"; // your API service
-// import { toast } from "react-toastify";
-
-// export default function MyBookings() {
-//   const [bookings, setBookings] = useState([]);
-//   const [loading, setLoading] = useState(true);
-//   const navigate = useNavigate();
-
-//   useEffect(() => {
-//     fetchBookings();
-//   }, []);
-
-//   const fetchBookings = async () => {
-//     try {
-//       const userId = localStorage.getItem("userId"); // or however you store logged in user
-//       const data = await getMyBookings(userId);
-//       setBookings(data);
-//     } catch (error) {
-//       toast.error("Failed to load bookings");
-//       console.error(error);
-//     } finally {
-//       setLoading(false);
-//     }
-//   };
-
-//   const handleCancel = (bookingId) => {
-//     // navigate to cancel page for full/partial seat cancel
-//     navigate(`/cancel/${bookingId}`);
-//   };
-
-//   if (loading) {
-//     return <p className="text-center">Loading your bookings...</p>;
-//   }
-
-//   if (bookings.length === 0) {
-//     return <p className="text-center">No bookings found.</p>;
-//   }
-
-//   return (
-//     <div className="container mt-4">
-//       <h2 className="mb-4">My Bookings</h2>
-//       <table className="table table-bordered">
-//         <thead>
-//           <tr>
-//             <th>Booking ID</th>
-//             <th>Route</th>
-//             <th>Seats</th>
-//             <th>Total Fare</th>
-//             <th>Status</th>
-//             <th>Refund Status</th>
-//             <th>Action</th>
-//           </tr>
-//         </thead>
-//         <tbody>
-//           {bookings.map((b) => (
-//             <tr key={b.bookingId}>
-//               <td>{b.bookingId}</td>
-//               <td>{b.route?.origin} → {b.route?.destination}</td>
-//               <td>{b.noOfSeats}</td>
-//               <td>₹{b.totalFare}</td>
-//               <td>{b.status}</td>
-//               <td>{b.refundStatus || "N/A"}</td>
-//               <td>
-//                 {b.status !== "Canceled" && b.status !== "Refunded" ? (
-//                   <button
-//                     className="btn btn-danger btn-sm"
-//                     onClick={() => handleCancel(b.bookingId)}
-//                   >
-//                     Cancel
-//                   </button>
-//                 ) : (
-//                   <span className="text-muted">Already Cancelled</span>
-//                 )}
-//               </td>
-//             </tr>
-//           ))}
-//         </tbody>
-//       </table>
-//     </div>
-//   );
-// }
